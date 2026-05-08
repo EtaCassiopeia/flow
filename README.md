@@ -39,17 +39,46 @@ The conventions baked in:
 - A Jira Cloud account with an API token, if you want the Tickets screen
   to do anything useful.
 
-## Build & install
+## Install
+
+> Note on naming: the crate is published (or installable) as **`flowctl`**
+> because `flow` was already taken on crates.io, but the binary it produces
+> is still called **`flow`**.
+
+### Pre-built binary (recommended)
+
+Each tagged release builds tarballs for Apple Silicon and Intel Macs.
+Grab the matching one from the
+[Releases page](https://github.com/EtaCassiopeia/flow/releases) and drop
+`flow` on your PATH:
 
 ```sh
-git clone <repo>
-cd my-workflow
+# Apple Silicon
+curl -L https://github.com/EtaCassiopeia/flow/releases/latest/download/flow-aarch64-apple-darwin.tar.gz \
+  | tar -xz -C /usr/local/bin/
+
+# Intel Mac
+curl -L https://github.com/EtaCassiopeia/flow/releases/latest/download/flow-x86_64-apple-darwin.tar.gz \
+  | tar -xz -C /usr/local/bin/
+```
+
+### From source via cargo
+
+```sh
+cargo install --git https://github.com/EtaCassiopeia/flow flowctl
+```
+
+This installs the `flow` binary to `$CARGO_HOME/bin/` (typically
+`~/.cargo/bin/`).
+
+### Build locally
+
+```sh
+git clone https://github.com/EtaCassiopeia/flow.git
+cd flow
 cargo build --release
 cp target/release/flow /usr/local/bin/   # or anywhere on PATH
 ```
-
-There's no `cargo install` story yet because the project hasn't been
-published; copy the binary or run from `target/release/flow` directly.
 
 ## First run
 

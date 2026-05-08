@@ -1,7 +1,18 @@
 [package]
-name = "flow"
+name = "flowctl"
 version = "0.1.0"
 edition = "2024"
+description = "A personal Ratatui TUI that turns Jira ticket → git worktree → tmux session into one keystroke."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/EtaCassiopeia/flow"
+readme = "README.md"
+keywords = ["tui", "ratatui", "git", "worktree", "tmux"]
+categories = ["command-line-utilities", "development-tools"]
+
+# Binary stays named `flow` even though the crate is `flowctl`.
+[[bin]]
+name = "flow"
+path = "src/main.rs"
 
 [dependencies]
 anyhow = "1.0.102"
