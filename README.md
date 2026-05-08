@@ -41,16 +41,36 @@ The conventions baked in:
 
 ## Install
 
-> Note on naming: the crate is published (or installable) as **`flowctl`**
+> **Naming note.** The crate is published as **[`flowctl`](https://crates.io/crates/flowctl)**
 > because `flow` was already taken on crates.io, but the binary it produces
-> is still called **`flow`**.
+> is called **`flow`**. So the install commands below say `flowctl` while
+> the command you actually run is `flow`.
 
-### Pre-built binary (recommended)
+### From crates.io (recommended for Rust users)
 
-Each tagged release builds tarballs for Apple Silicon and Intel Macs.
-Grab the matching one from the
-[Releases page](https://github.com/EtaCassiopeia/flow/releases) and drop
-`flow` on your PATH:
+```sh
+cargo install flowctl
+```
+
+This installs the `flow` binary to `$CARGO_HOME/bin/` — typically
+`~/.cargo/bin/`. Make sure that directory is on your `PATH` (it is by
+default if you installed Rust via [rustup](https://rustup.rs)). Verify
+with:
+
+```sh
+flow --version
+flow doctor
+```
+
+To upgrade later, re-run the same command — recent `cargo install`
+versions detect the upstream bump and replace the existing binary
+without needing `--force`.
+
+### Pre-built binary (no Rust toolchain needed)
+
+Each tagged release attaches tarballs for Apple Silicon and Intel Macs
+to the [Releases page](https://github.com/EtaCassiopeia/flow/releases).
+Pick the right one for your machine and drop `flow` on your PATH:
 
 ```sh
 # Apple Silicon
@@ -62,16 +82,22 @@ curl -L https://github.com/EtaCassiopeia/flow/releases/latest/download/flow-x86_
   | tar -xz -C /usr/local/bin/
 ```
 
-### From source via cargo
+Each tarball has a `.sha256` sibling in the same release if you want to
+verify the download.
+
+### Latest from `main` (unreleased)
+
+If you want changes that haven't shipped yet:
 
 ```sh
 cargo install --git https://github.com/EtaCassiopeia/flow flowctl
 ```
 
-This installs the `flow` binary to `$CARGO_HOME/bin/` (typically
-`~/.cargo/bin/`).
+The `flowctl` argument is the package name inside that repo — `cargo
+install` needs it because the working directory could in principle hold
+multiple packages.
 
-### Build locally
+### Build locally (for development)
 
 ```sh
 git clone https://github.com/EtaCassiopeia/flow.git
@@ -79,6 +105,17 @@ cd flow
 cargo build --release
 cp target/release/flow /usr/local/bin/   # or anywhere on PATH
 ```
+
+### Uninstall
+
+```sh
+cargo uninstall flowctl   # if installed via cargo
+rm /usr/local/bin/flow    # if installed manually
+```
+
+The config and cache directories — `~/.config/flow/` and `~/.cache/flow/` —
+plus the Keychain entries (service `flow`) survive an uninstall. Remove
+them by hand if you want a clean slate.
 
 ## First run
 
